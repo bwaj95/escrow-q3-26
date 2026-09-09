@@ -1,4 +1,4 @@
-pub use anchor_lang::prelude::*;
+use anchor_lang::prelude::*;
 
 #[derive(InitSpace)]
 #[account(discriminator = 1)]

@@ -10,11 +10,17 @@ use crate::{state::Escrow, ESCROW_SEED};
 pub struct Refund<'info> {
     #[account(mut)]
     maker: Signer<'info>,
+
+    #[account(
+    mint::token_program = token_program
+    )]
     mint_a: InterfaceAccount<'info, Mint>,
+
     #[account(
         mut,
         associated_token::mint = mint_a,
         associated_token::authority = maker,
+        associated_token::token_program = token_program,
     )]
     maker_ata_a: InterfaceAccount<'info, TokenAccount>,
     #[account(
@@ -30,6 +36,7 @@ pub struct Refund<'info> {
         mut,
         associated_token::mint = mint_a,
         associated_token::authority = escrow,
+        associated_token::token_program = token_program,
     )]
     vault: InterfaceAccount<'info, TokenAccount>,
     token_program: Interface<'info, TokenInterface>,
